@@ -4,11 +4,12 @@
             <h1>
                 Shopping cart
             </h1>
-            <ItemCart 
+            <itemCart 
             v-for="item in cartItems"
             :key="item.id"
             :item="item"
             />
+
             <h3 id="total-price">Total:Rp{{ totalPrice }}</h3>
             <button id="checkout-button">Checkout Button</button>
         </div>
@@ -16,7 +17,7 @@
 </template>
 
 <script>
-import {cartItems} from '../../data-seed'
+import axios from 'axios';
 import itemCart from '../../components/itemCart.vue'
 
 export default {
@@ -26,7 +27,7 @@ export default {
   },
  data(){
     return {
-        cartItems
+        cartItems: []
     }
  },
  computed: {
@@ -35,8 +36,19 @@ export default {
             (sum, item) => sum + Number(item.price), 0
         )
     }
- }
-
+ },
+ async created(){
+  const result = await axios.get('http://localhost:8000/api/orders/user/1')
+  let data = Object.assign({},
+    ...(result.data.map(
+        result => ({
+          cart_items: result.products
+        })
+      )
+    )
+  )
+  this.cartItems = data.cart_items;
+}
 }
 </script>
 

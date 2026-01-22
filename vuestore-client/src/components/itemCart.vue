@@ -2,7 +2,7 @@
   <div class="product-container"
             
             >
-                <img :src="item.imageUrl" :alt="item.name" class="product-image">
+                <img :src="`http://localhost:8000${item.imageUrl}`" :alt="item.name" class="product-image">
                 <div class="details-wrap">
                     <h3>{{ item.name }}</h3>
                     <p>Rp.{{ item.price }}</p>
