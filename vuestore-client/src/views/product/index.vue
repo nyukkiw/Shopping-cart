@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import {products} from '../../data-seed'
+import axios from 'axios'
 import productItem from '../../components/productItem.vue'
 export default {
     name: 'ProductIndex',
@@ -22,10 +22,13 @@ export default {
     },
     data(){
         return {
-            products
+            products: []
         }
     },
-
+    async created(){
+    const result = await axios.get('http://localhost:8000/api/products')
+    this.products = result.data
+}
 }
 </script>
 

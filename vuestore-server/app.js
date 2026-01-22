@@ -1,9 +1,19 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
+const path = require('path');
 const PORT = process.env.PORT || 8000;
+
+let corsOptions = {
+    origin: "http://localhost:8081"
+}
+// enable cors
+app.use(cors(corsOptions))
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+
+app.use('/img', express.static(path.join(__dirname, './public/img')));
 
 const db = require('./app/models');
 db.mongoose.connect(db.url)
