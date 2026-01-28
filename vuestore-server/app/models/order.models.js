@@ -1,23 +1,38 @@
 module.exports = mongoose => {
-    const schema = mongoose.Schema({
-        user_id: Number,
-        cart_items: [String],
-    })
+  const schema = mongoose.Schema({
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "users",
+      required: true
+    },
 
-    schema.method("toJSON", function() {
-        const {
-            __v, 
-            _id,
-            ...object
-        } = this.toObject()
-        object.id = _id;
-        return object;
-    })
+    cart_items: [
+      {
+        productId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "products",
+          required: true
+        },
+        qty: {
+          type: Number,
+          required: true,
+          min: 1
+        },
+        price: {
+          type: Number,
+          required: true
+        }
+      }
+    ],
 
-    const Order = mongoose.model("order", schema);
-    return Order;
+    totalPrice: Number
+  }, { timestamps: true });
 
-    }
+  schema.method("toJSON", function () {
+    const { __v, _id, ...object } = this.toObject();
+    object.id = _id;
+    return object;
+  });
 
-
-    
+  return mongoose.model("orders", schema);
+};

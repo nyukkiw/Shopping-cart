@@ -9,6 +9,6 @@ db.mongoose = mongoose;
 db.url = dbConfig.url;
 db.products = require('./product.model')(mongoose);
 db.orders = require('./order.models')(mongoose);
-
+db.users = require('./user.models')(mongoose);
 
 module.exports = db;

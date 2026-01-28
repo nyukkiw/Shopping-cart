@@ -5,6 +5,7 @@ import productDetail from '../views/product/detail.vue'
 import cartIndex from '../views/cart/index.vue'
 import NotFound from '@/views/errors/NotFound.vue'
 
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -39,3 +40,5 @@ const router = new VueRouter({
 })
 
 export default router
+
+
